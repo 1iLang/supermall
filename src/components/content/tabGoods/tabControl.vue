@@ -1,33 +1,26 @@
 <template>
-<div>
   <h3 class="tab-control">
     <div v-for="(item,index) in titles" :key="index">
       <span @click="tabClick(index)" :class="{active: index === currentIndex}">{{item}}</span>
     </div>
   </h3>
-
-  <ul>
-    <li></li>
-  </ul>
-</div>  
 </template>
 
 <script>
 export default {
-  name: "TabControl",
+  name: "tabControl",
   props: {
-    titles:Array
+    titles:Array,
   },
   data() {
     return {
       currentIndex: 0
     }
   },
-  components: {
-  },
   methods: {
     tabClick(i) {
       this.currentIndex = i;
+      this.$parent.$parent.getHomeGs(i);
     },
   }
 }
@@ -35,6 +28,7 @@ export default {
 
 <style scoped>
 .tab-control {
+  width: 100%;
   display: flex;
   height: 40px;
   line-height: 40px;
@@ -43,6 +37,7 @@ export default {
   background: #fff;
   position: sticky;
   top: 44px;
+  z-index: 9;
 }
 .tab-control>div {
   flex: 1;

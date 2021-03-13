@@ -6,8 +6,12 @@ export function getHomeMultiData() {
   })
 }
 
-export function getHomeGoods() {
+export function getHomeGoods(sort,page) {
   return requestM({
-    url: 'search?cKey=h5-cube&fcid=10062603&page=1&_version=1&pid=&q=&cpc_offset=0&sort=sell&_=1615441969349'
+    url: 'search?cKey=h5-cube&fcid=10062603',
+    params: {
+      sort,
+      page
+    }
   })
 }

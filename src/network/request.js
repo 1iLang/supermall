@@ -26,7 +26,6 @@ export function request(config){
   return instance(config)
 }
 
-//第二种封装
 export function requestM(config){
   // 1.创建axios的实例
   const instance = axios.create({

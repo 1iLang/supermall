@@ -4,7 +4,7 @@
     <home-swiper class="nav-top" :banners="banners" />
     <home-recommend :recommends="recommends" />
     <home-feature />
-    <tab-goods :titles="['流行', '新款', '精选']" :goods="goods[currentType]" />
+    <tab-goods :goods="goods[currentType]" />
   </div>
 </template>
 

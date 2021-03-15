@@ -1,6 +1,6 @@
 <template>
 <div class="tabGoods">
-  <tab-control :titles="titles"/>
+  <tab-control :titles="['流行', '新款', '精选']"/>
   <tab-gs-list v-bind="$attrs"/>
 </div>  
 </template>
@@ -11,7 +11,7 @@ import TabControl from './tabControl'
 export default {
   name: "TabGoods",
   props: {
-    titles:Array,
+//    titles:Array,
   },
   /*data() {
     return {

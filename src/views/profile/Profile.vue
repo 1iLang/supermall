@@ -1,5 +1,6 @@
 <template>
   <div>
+    <scroll class="pro-scroll">
       <ul>
         <li>个人信息1</li>
         <li>个人信息2</li>
@@ -102,13 +103,16 @@
         <li>个人信息99</li>
         <li>个人信息100</li>
       </ul>
+    </scroll>  
   </div>
 </template>
 
 <script>
+  import Scroll from "components/common/scroll/scroll"
   export default {
     name: "Profile",
     components: {
+      Scroll
     }
   }
 </script>
@@ -117,6 +121,10 @@
   .content {
     height: 300px;
     background-color: red;
+    overflow: hidden;
+  }
+  .pro-scroll {
+    height: 300px;
     overflow: hidden;
   }
 </style>

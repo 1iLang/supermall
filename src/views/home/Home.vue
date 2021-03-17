@@ -1,10 +1,12 @@
 <template>
   <div id="home">
     <nav-bar class="nav-set"><div slot="center">购物街</div></nav-bar>
-    <home-swiper class="nav-top" :banners="banners" />
-    <home-recommend :recommends="recommends" />
-    <home-feature />
-    <tab-goods :goods="goods[currentType]" />
+    <scroll class="home-scroll">
+      <home-swiper class="nav-top" :banners="banners" />
+      <home-recommend :recommends="recommends" />
+      <home-feature />
+      <tab-goods :goods="goods[currentType]" />
+    </scroll>
   </div>
 </template>
 
@@ -12,6 +14,7 @@
 //公共组件
 import NavBar from "components/common/navbar/NavBar";
 import TabGoods from "components/content/tabGoods/tabGoods";
+import Scroll from "components/common/scroll/scroll"
 
 //home子组件
 import HomeSwiper from "./childComps/homeSwiper";
@@ -29,6 +32,7 @@ export default {
     HomeRecommend,
     HomeFeature,
     TabGoods,
+    Scroll
   },
   data() {
     return {
@@ -48,6 +52,8 @@ export default {
 
     //请求商品数据
     this.getHomeGs(0);
+    this.getHomeGs(1);
+    this.getHomeGs(2);
   },
   methods: {
     getHomeMultiD() {
@@ -71,8 +77,7 @@ export default {
       let type = this.currentType;
       this.goods[type].length > 0 ||
       getHomeGoods(type, 1).then((res) => {
-        this.goods[type] = res.data.result.wall.docs;
-        console.log(this.goods[type]);
+        this.goods[type] = res.result.wall.docs;
       });
     },
   },
@@ -88,7 +93,15 @@ export default {
   top: 0;
   z-index: 9;
 }
-.nav-top {
+/*.nav-top {
   margin-top: 44px;
+}*/
+.home-scroll {
+  position: absolute;
+  top: 44px;
+  bottom: 49px;
+  left: 0;
+  right: 0;
+  overflow: hidden;
 }
 </style>

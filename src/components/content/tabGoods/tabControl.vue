@@ -20,7 +20,7 @@ export default {
   methods: {
     tabClick(i) {
       this.currentIndex = i;
-      this.$parent.$parent.getHomeGs(i);
+      this.$parent.$parent.$parent.getHomeGs(i);
     },
   }
 }

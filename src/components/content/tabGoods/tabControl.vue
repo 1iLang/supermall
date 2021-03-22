@@ -14,13 +14,19 @@ export default {
   },
   data() {
     return {
-      currentIndex: 0
+      currentIndex: 0,
+      isFixed: false
     }
   },
   methods: {
     tabClick(i) {
       this.currentIndex = i;
-      this.$parent.$parent.$parent.getHomeGs(i);
+      // this.$parent.$parent.$parent.getGsType(i);
+      // const t0 = performance.now();
+      this.$bus.$emit('getGsType',i)
+      // const t1 = performance.now();
+      // console.log(t1 - t0, 'ms');
+
     },
   }
 }
@@ -35,9 +41,6 @@ export default {
   text-align: center;
   font-size: 15px;
   background: #fff;
-  position: sticky;
-  top: 44px;
-  z-index: 9;
 }
 .tab-control>div {
   flex: 1;

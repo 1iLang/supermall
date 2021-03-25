@@ -9,7 +9,8 @@ Vue.use(VueRouter)
 const Home = () => import('../views/home/Home')
 const Category = () => import('../views/category/Category')
 const Cart = () => import('../views/cart/Cart')
-const Profile =() => import('../views/profile/Profile')
+const Profile = () => import('../views/profile/Profile')
+const Detail = () => import('../views/detail/Detail')
 
 const routes = [
   {
@@ -21,16 +22,20 @@ const routes = [
     component: Home
   },
   {
-    path: '/category',
+    path: '/category', //分类页
     component: Category
   },
   {
-    path: '/cart',
+    path: '/cart', //购物车页
     component: Cart
   },
   {
-    path: '/profile',
+    path: '/profile', //个人信息页
     component: Profile
+  },
+  {
+    path: '/detail/:id', //商品详情页
+    component: Detail
   },
 ];
 

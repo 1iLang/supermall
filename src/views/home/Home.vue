@@ -53,7 +53,8 @@ export default {
       },
       currentType: 'pop',
       isShowBT: false,
-      isFixed: false
+      isFixed: false,
+      saveY: 0
     };
   },
   created() {
@@ -72,16 +73,22 @@ export default {
       this.$refs.tabCon.currentIndex = i
       this.$refs.hGoods.$children[0].currentIndex = i
     })
-    //监听图片加载完成
-    
+
+    //监听图片加载完成刷新scroll滚动   
     const refresh = debounce(this.$refs.hScroll.refresh,500)
     this.$bus.$on('imgLoad',() => {
       refresh()
-      //this.$refs.hScroll && this.$refs.hScroll.refresh()
     })
   },
   beforeDestroy() {
     this.$bus.$off('imgLoad')//组件销毁之前解绑$bus全局自定义事件，避免重复监听
+  },
+  activated() {
+    this.$refs.hScroll.scrollTo(0,this.saveY,0)
+    //this.$refs.hScroll.refresh()
+  },
+  deactivated() {
+    this.saveY = this.$refs.hScroll.scroll.y
   },
   methods: {
     getHomeMultiD() {

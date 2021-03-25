@@ -1,7 +1,7 @@
 <template>
   <ul class="tabGsList">
     <li v-for="(item, index) in $attrs.goods.list" :key="index">
-      <a :href="item.link">
+      <a @click="itemDetail(item.iid)">
         <div class="Gsimg">
           <img :src="item.img+'_440x587.v1cAC.40.webp'" @load="imgLoad"/>
           <span>已售{{ item.sale }}件</span>
@@ -28,6 +28,9 @@ export default {
   methods: {
     imgLoad() {
       this.$bus.$emit('imgLoad')
+    },
+    itemDetail(id) {
+      this.$router.push('/detail/' + id)
     }
   }
 };

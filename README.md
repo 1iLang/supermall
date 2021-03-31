@@ -1,5 +1,7 @@
-# Vue demo
+# 简介
 
-一个用vue做的简易商城
+一个仿蘑菇街作为练手的vue项目
 
-1.testtest
+## 技术栈
+
+vue2 + vue/cli4 + vuex + vue-router + ES6/7

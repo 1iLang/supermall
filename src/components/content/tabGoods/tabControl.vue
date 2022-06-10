@@ -22,10 +22,9 @@ export default {
     tabClick(i) {
       this.currentIndex = i;
       // this.$parent.$parent.$parent.getGsType(i);
-      // const t0 = performance.now();
+      // console.time('test')
       this.$bus.$emit('getGsType',i)
-      // const t1 = performance.now();
-      // console.log(t1 - t0, 'ms');
+      // console.timeEnd('test')
 
     },
   }

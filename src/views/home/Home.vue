@@ -28,7 +28,7 @@ import TabControl from 'components/content/tabGoods/tabControl'
 
 //数据和方法组件
 import { getHomeMultiData, getHomeGoods } from "network/home.js";
-import { debounce } from "common/utils"
+//import { debounce } from "common/utils"
 
 export default {
   name: "Home",
@@ -47,9 +47,9 @@ export default {
       banners: [],
       recommends: [],
       goods: {
-        pop: {page:0,list:[]},
-        new: {page:0,list:[]},
-        sell: {page:0,list:[]},
+        pop: {page:0,lastLength:0,list:[]},
+        new: {page:0,lastLength:0,list:[]},
+        sell: {page:0,lastLength:0,list:[]},
       },
       currentType: 'pop',
       isShowBT: false,
@@ -70,14 +70,13 @@ export default {
     //监听tabControl切换数据 
     this.$bus.$on('getGsType',(i) => {
       this.getGsType(i);
-      this.$refs.tabCon.currentIndex = i
-      this.$refs.hGoods.$children[0].currentIndex = i
     })
 
     //监听图片加载完成刷新scroll滚动   
-    const refresh = debounce(this.$refs.hScroll.refresh,500)
+    //const refresh = debounce(this.$refs.hScroll.refresh,100)
     this.$bus.$on('imgLoad',() => {
-      refresh()
+      //refresh() 防抖函数
+      this.$refs.hScroll.refresh()
     })
   },
   beforeDestroy() {
@@ -85,9 +84,8 @@ export default {
   },
   activated() {
     this.$refs.hScroll.scrollTo(0,this.saveY,0)
-    //this.$refs.hScroll.refresh()
   },
-  deactivated() {
+  deactivated() {//记录hScroll当前位置
     this.saveY = this.$refs.hScroll.scroll.y
   },
   methods: {
@@ -109,6 +107,10 @@ export default {
           this.currentType = 'sell';
           break;
       }
+      //切换时tabCon和tabControl的索引保持一致
+      this.$refs.tabCon.currentIndex = i
+      this.$refs.hGoods.$children[0].currentIndex = i
+      
       let type = this.currentType;    
       this.goods[type].list.length > 0 || this.getHomeGs(type)
     },
@@ -117,14 +119,15 @@ export default {
       getHomeGoods(type, page).then((res) => {
         this.goods[type].list.push(...res.result.wall.docs);
         this.goods[type].page += 1;
+        this.goods[type].lastLength = res.result.wall.docs.length;
       });
     },
     backTop() {
       this.$refs.hScroll.scrollTo(0,0)
     },
     beScroll(p){//接收滚动实时位置
-      this.isShowBT = (-p.y) > 1500;
-      this.isFixed = (-p.y) >= this.$refs.hGoods.$el.offsetTop
+      this.isShowBT = (-p.y) > 1500;//Scroll滚动时是否显示backTop
+      this.isFixed = (-p.y) >= this.$refs.hGoods.$el.offsetTop//Scroll滚动时是否显示tabCon
     },
     beUp() {
       this.getHomeGs(this.currentType);

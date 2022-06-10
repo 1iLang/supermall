@@ -7,8 +7,8 @@
         @click="navClick(index)" 
         :class="{'active' : index === currentIndex}">{{item}}</span>
       </div>
-    </nav-bar>
-    {{id}}
+    </nav-bar> 
+    <div class="content">{{id}}</div>
   </div>
 </template>
 
@@ -64,5 +64,15 @@ export default {
 }
 .active {
   color: var(--color-high-text)
+}
+.content {
+  position: absolute;
+  top: 44px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  overflow: hidden;
+  z-index: 9;
 }
 </style>

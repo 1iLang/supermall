@@ -1,9 +1,9 @@
 <template>
   <ul class="tabGsList">
-    <li v-for="(item, index) in $attrs.goods.list" :key="index">
+    <li v-for="item in $attrs.goods.list" :key="item.cparam">
       <a @click="itemDetail(item.iid)">
         <div class="Gsimg">
-          <img :src="item.img+'_440x587.v1cAC.40.webp'" @load="imgLoad"/>
+          <img v-lazy="item.img+'_440x587.v1cAC.40.webp'" @load="imgLoad"/>
           <span>已售{{ item.sale }}件</span>
         </div>
         <div>
@@ -22,15 +22,30 @@
 export default {
   name: "TabGsList",
   data() {
-    return {};
+    return {
+      currentLength: 0 ,//当前加载图片次数
+    };
   },
   components: {},
   methods: {
     imgLoad() {
-      this.$bus.$emit('imgLoad')
+      //当前路由为首页时发送事件
+      // console.time('test')
+      // this.$route.path.indexOf('/home') === -1 || this.$bus.$emit('imgLoad')
+      // console.timeEnd('test')
+      //提升性能 -- 当前@load次数等于最后接收的图片总数时 发送事件
+      if(++this.currentLength === this.$attrs.goods.lastLength) {
+        this.$bus.$emit('imgLoad');
+        this.currentLength = 0;
+      }
     },
     itemDetail(id) {
       this.$router.push('/detail/' + id)
+    }
+  },
+  watch: {
+    currentType() {
+      console.log(2)
     }
   }
 };

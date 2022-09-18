@@ -4,4 +4,4 @@
 
 ## 技术栈
 
-vue2 + vue/cli4 + vuex + vue-router + ES6/7
+vue2 + vue/cli4 + vuex@3 + vue-router@3 + less + ES6/7
